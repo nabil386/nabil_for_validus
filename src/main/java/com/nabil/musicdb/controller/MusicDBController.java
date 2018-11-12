@@ -119,7 +119,7 @@ public class MusicDBController {
 		return musicService.updateSong(id, song);
 	}
 
-	// Delete Operations
+	// Delete Operations.
 
 	@DeleteMapping("/artist/{id}")
 	public ResponseEntity<String> deleteArtist(@PathVariable("id") final Integer id) {
@@ -154,7 +154,7 @@ public class MusicDBController {
 	@RequestMapping(value="/", method=RequestMethod.OPTIONS, produces=MediaType.TEXT_PLAIN_VALUE)
 	public String getInfo() {
 		
-		return 	"Restful API:\r\n" 
+		return 	"Restful API:\r\n"
 				+"\r\n" + 
 				"Create Endpoints\r\n" + 
 				"\r\n" + 
