@@ -133,6 +133,6 @@ public class MusicDBService {
 
 	@Transactional
 	public void deleteSong(final Integer id) {
-		songRepository.deleteById(id);
+		songRepository.deleteSongById(id);
 	}
 }
