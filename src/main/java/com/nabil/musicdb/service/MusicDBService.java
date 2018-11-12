@@ -91,9 +91,13 @@ public class MusicDBService {
 
 	@Transactional
 	public Album updateAlbum(final Integer id, Album album) {
-		Album existing = albumRepository.getOne(id);
+		Optional<Album> existing = albumRepository.findById(id);
 		album.setId(id);
-		album.setArtist(existing.getArtist());
+		if(album.getYearReleased()==null)
+			album.setYearReleased(existing.get().getYearReleased());
+		else
+			album.setYearReleased(album.getYearReleased());
+		album.setArtist(existing.get().getArtist());
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		album.setLastModified(ts);
 		return albumRepository.save(album);
@@ -101,13 +105,18 @@ public class MusicDBService {
 
 	@Transactional
 	public Song updateSong(final Integer id, Song song) {
-		Song existing = songRepository.getOne(id);
-		Artist singer = existing.getArtist();
-		Album record = existing.getAlbum();
+		Optional<Song> existing = songRepository.findById(id);
+		Artist singer = existing.get().getArtist();
+		Album record = existing.get().getAlbum();
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		song.setId(id);
+		if(song.getTrack() == null)
+			song.setTrack(existing.get().getTrack());
+		else
+			song.setTrack(song.getTrack());
 		song.setArtist(singer);
 		song.setAlbum(record);
+		song.setCreated(existing.get().getCreated());
 		song.setLastModified(ts);
 		return songRepository.save(song);
 	}
