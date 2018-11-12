@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nabil.musicdb.model.Album;
@@ -147,6 +149,44 @@ public class MusicDBController {
 			return new ResponseEntity<String>("record id: " + id + " is not found", HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<String>("Song deleted successfully.", HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/", method=RequestMethod.OPTIONS, produces=MediaType.TEXT_PLAIN_VALUE)
+	public String getInfo() {
+		
+		return 	"Restful API:\r\n" 
+				+"\r\n" + 
+				"Create Endpoints\r\n" + 
+				"\r\n" + 
+				"POST /musicdb/artist/new\r\n" + 
+				"\r\n" + 
+				"POST /musicdb/artist/{artist_id}/album/new\r\n" + 
+				"\r\n" + 
+				"POST /musicdb/artist/{artist_id}/album/{album_id}/song/new\r\n" + 
+				"\r\n" + 
+				"Get Endpoints\r\n" + 
+				"\r\n" + 
+				"GET /musicdb/artists\r\n" + 
+				"\r\n" + 
+				"GET /musicdb/albums\r\n" + 
+				"\r\n" + 
+				"GET /musicdb/songs\r\n" + 
+				"\r\n" + 
+				"Update Endpoints\r\n" + 
+				"\r\n" + 
+				"PUT /musicdb/artist/{id}\r\n" + 
+				"\r\n" + 
+				"PUT /musicdb/album/{id}\r\n" + 
+				"\r\n" + 
+				"PUT /musicdb/song/{id}\r\n" + 
+				"\r\n" + 
+				"Delete Endpoints\r\n" + 
+				"\r\n" + 
+				"DELETE /musicdb/song/{Id}\r\n" + 
+				"\r\n" + 
+				"DELETE /musicdb/album/{id}\r\n" + 
+				"\r\n" + 
+				"DELETE /musicdb/artist/{Id}";
 	}
 
 }
